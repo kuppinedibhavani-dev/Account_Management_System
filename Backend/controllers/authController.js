@@ -8,7 +8,7 @@ export const signup=async(req,res)=>{
     const hashedPassword=await bcrypt.hash(password,10)
     const {data,error}=await supabase 
     .from("users")
-    .insert([{name,email,password:hashedPassword}])
+    .insert([{name,email,password:hashedPassword,balance:10000}])
     .select()
 
     if(error)return res.status(400).json({error})

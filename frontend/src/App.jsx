@@ -13,8 +13,8 @@ function App() {
     <BrowserRouter>
       <Routes>
 
-        {/* Redirect home to login */}
-        <Route path="/" element={<Navigate to="/login" />} />
+      
+        <Route path="/" element={<Navigate to="/signup" />} />
 
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />

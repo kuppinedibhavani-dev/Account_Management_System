@@ -1,49 +1,47 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 
-function Dashboard() {
+function Dashboard(){
 
-  const [balance, setBalance] = useState(0);
+const [balance,setBalance] = useState(0)
 
-  useEffect(() => {
+useEffect(()=>{
+    const token = localStorage.getItem("token")
 
-    const fetchBalance = async () => {
-
-      const token = localStorage.getItem("token");
-
-      const res = await axios.get(
-        "http://localhost:5000/api/account/balance",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
+    axios.get("http://localhost:5000/api/account/balance",{
+        headers:{
+            Authorization:`Bearer ${token}`
         }
-      );
+    })
+    .then(res=>{
+        setBalance(res.data.balance)
+    })
+},[])
 
-      setBalance(res.data.balance);
+return(
 
-    };
+<div style={{padding:"40px"}}>
 
-    fetchBalance();
+<h2>Account Dashboard</h2>
 
-  }, []);
+<div style={{
+background:"white",
+padding:"30px",
+width:"300px",
+borderRadius:"10px",
+boxShadow:"0 5px 20px rgba(0,0,0,0.2)"
+}}>
 
-  return (
-    <div>
+<h3>Current Balance</h3>
 
-      <h2>Dashboard</h2>
+<h1 style={{color:"green"}}>₹{balance}</h1>
 
-      <h3>Balance: ₹{balance}</h3>
+</div>
 
-      <Link to="/send">Send Money</Link>
+</div>
 
-      <br /><br />
+)
 
-      <Link to="/statement">Account Statement</Link>
-
-    </div>
-  );
 }
 
-export default Dashboard;
+export default Dashboard
